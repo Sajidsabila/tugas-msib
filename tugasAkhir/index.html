@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Single Page Application</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <style>
+      body {
+        background-color: rgb(22, 99, 167);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0;
+        height: 140vh;
+        color: rgb(211, 205, 205);
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      .container {
+        width: 80%;
+        text-align: center;
+      }
+
+      .text-danger {
+        color: white;
+        background-color: red;
+      }
+
+      .text-primary {
+        color: white;
+        background-color: blue;
+      }
+
+      .text-warning {
+        color: white;
+
+        background-color: rgb(204, 204, 70);
+      }
+
+      .text-success {
+        color: white;
+        background-color: green;
+      }
+
+      #div-input {
+        color: black;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div id="front-page">
+        <h1 style="display: none">Welcome to Library MSIB6_WebFullstack#7</h1>
+        <div id="div-input" style="display: none">
+          <label>Input Nickname :</label>
+          <input id="nickname" type="text" />
+        </div>
+      </div>
+
+      <div id="main-page" style="display: none">
+        <h2>Data List Library MSIB 6 Web Fullstack 7</h2>
+        <a id="add-data" href="#">Tambah Data</a>
+        <table width="100%" border="1px solid black">
+          <thead class="disaplay">
+            <tr>
+              <th>No</th>
+              <th>Book Name</th>
+              <th>Description</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody >
+          </tbody>
+        </table>
+      </div>
+
+      <div id="input-page" style="display: none">
+        <h2>Detail Page</h2>
+        <form id="detail-form">
+          <input id="book_id" type="hidden" />
+          <label>Book Name :</label>
+          <input id="book_name" type="text" />
+          <br />
+          <br />
+          <label>Description :</label>
+          <input id="description" type="text" />
+          <br />
+          <br />
+          <button type="submit" class="text-primary">Save</button>
+          <button type="reset" class="text-warning" >Cancel</button>
+        </form>
+      </div>
+    </div>
+    <script src="https://cdn.datatables.net/2.0.2/js/dataTables.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
