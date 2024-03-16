@@ -1,199 +1,143 @@
 $(document).ready(() => {
-  // memanggil library datatable
+    let nickname = "";
+    let books = {};
+    let editingIndex = -1;
 
-  let nickname = "";
-  let books = {};
-  $("h1").fadeIn(4000);
-  $("#div-input").slideDown(1000);
+    $("h1").fadeIn(1000);
+    $("#div-input").slideDown(1000);
 
-  $(".text-warning").click(() => {
-    $("#input-page").hide();
-    $("#main-page").show();
-  });
+    //keyup enter name
+    $('#nickname').keyup(function (e) {
+        if (e.key == "Enter") {
+            if (e.target.value == "") {
+                $('#nickname').addClass("text-danger");
+            } else {
+                nickname = e.target.value;
+                getData();
+                $('#front-page').slideUp(1000);
+                $('#main-page').fadeIn(1000);
+            }
+        }
+    });
 
-  const validasi = $("#nickname").keyup((e) => {
-    if (e.key == "Enter") {
-      if (e.target.value == "") {
-        swal({
-          title: "Error",
-          text: "Maaf Nickname Masih Kosong",
-          icon: "error",
-          button: "Isi Form",
-        });
-      } else {
-        nickname = e.target.value;
-        getData();
-        $("#front-page").slideUp(1000);
-        $("#main-page").fadeIn(1000);
-      }
-    }
-  });
+    $('#add-data').click(function () {
+        $('#main-page').hide();
+        $('#detail-page').show();
+        clearDetailForm();
+    });
 
-  const showPageInput = $("#add-data").click(() => {
-    $("#main-page").hide(2000);
-    $("#input-page").show(1000);
-  });
+    $('#detail-form').submit(function (e) {
+        e.preventDefault(); // supaya saat submit tidak pindah page
+        if ($('#book_name').val() == "" || $('#description').val() == "") {
+            alert("Isi semua inputan");
+            //buat warna merah donk
+        } else {
+            if (editingIndex === -1) {
+                // Add data
+                $.ajax({
+                    url: "https://jquery.warastra-adhiguna.com/api/book?nickname=" + nickname,
+                    type: "POST",
+                    dataType: "json",
+                    data: {
+                        nickname: nickname,
+                        book_name: $('#book_name').val(),
+                        description: $('#description').val(),
+                    },
+                    success: function (data) {
+                        alert(data.message);
+                        $('#main-page').show();
+                        $('#detail-page').hide();
+                        getData();
+                        clearDetailForm();
+                    },
+                    error: function (error) {
+                        alert(error.message);
+                    },
+                });
+            } else {
+                // Edit data
+                $.ajax({
+                    url: "https://jquery.warastra-adhiguna.com/api/book/" + $('#book_id').val() + "?nickname=" + nickname,
+                    type: "PUT",
+                    dataType: "json",
+                    data: {
+                        nickname: nickname,
+                        book_name: $('#book_name').val(),
+                        description: $('#description').val(),
+                    },
+                    success: function (data) {
+                        alert(data.message);
+                        $('#main-page').show();
+                        $('#detail-page').hide();
+                        getData();
+                        clearDetailForm();
+                        editingIndex = -1; // Reset editing index
+                    },
+                    error: function (error) {
+                        alert(error.message);
+                    },
+                });
+            }
+        }
+    });
 
-  const inputBooks = $("#detail-form").submit((e) => {
-    e.preventDefault();
-    if ($("#book_name").val() == "" || $("#description").val() == "") {
-      swal({
-        title: "Error",
-        text: "Input  Masih Kosong",
-        icon: "error",
-        button: "Isi Form",
-      });
-    } else {
-      if ($("#book_id").val() == "" + index == 0 ) {
-        $.ajax({
-          url:
-            "https://jquery.warastra-adhiguna.com/api/book?nickname=" +
-            nickname,
-          type: "POST",
-          dataType: "json",
-          data: {
-            nickname: nickname,
-            book_name: $("#book_name").val(),
-            description: $("#description").val(),
-          },
-          success: (data) => {
-            swal({
-              title: "Succes",
-              text: data.message,
-              icon: "success",
-              button: "Isi Form",
+    $("tbody").on("click", ".text-warning", function () {
+        let index = $(this).attr("id").split("_")[1];
+        $('#book_id').val(books[index].id);
+        $('#book_name').val(books[index].book_name);
+        $('#description').val(books[index].description);
+        $('#main-page').hide();
+        $('#detail-page').show();
+        editingIndex = index; // Set editing index
+    });
+
+    $("tbody").on("click", ".text-danger", function () {
+        let index = $(this).attr("id").split("_")[1];
+        let bookId = books[index].id;
+            $.ajax({
+                url: "https://jquery.warastra-adhiguna.com/api/book/" + bookId,
+                type: "DELETE",
+                dataType: "json",
+                data: {
+                    nickname: nickname,
+                    book_name: books[index].book_name,
+                    description: books[index].description,
+                },
+                success: function (data) {
+                    alert(data.message);
+                    getData();
+                },
+                error: function (error) {
+                    alert(error.message);
+                },
             });
-            $("#main-page").show(1000);
-            $("#input-page").hide(1000);
-            getData();
-            refreshTable();
-            $("#book_id").val("");
-            $("#book_name").val("");
-            $("#description").val("");
-          },
-          error: function (error) {
-            swal({
-              title: "Error",
-              text: error.message,
-              icon: "error",
-              button: "Isi Form",
-            });
-          },
-        });
-      } else {
+    });
+
+    function getData() {
         $.ajax({
-          url:
-            "https://jquery.warastra-adhiguna.com/api/book/" +
-            $("#book_id").val(),
-          type: "PUT",
-          dataType: "json",
-          data: {
-            nickname: nickname,
-            book_name: $("#book_name").val(),
-            description: $("#description").val(),
-          },
-          success: (data) => {
-            alert("Update Berhasil");
-            $("#main-page").show();
-            $("#input-page").hide();
-            getData();
-            refreshTable();
-          },
-          error: (error) => {
-            alert(error.message);
-          },
+            url: "https://jquery.warastra-adhiguna.com/api/book?nickname=" + nickname,
+            type: "GET",
+            dataType: "json",
+            success: function (result) {
+                books = result.data;
+                refreshTable();
+            },
+            error: function (error) {
+                alert("Terjadi kesalahan: ", error.message);
+            },
         });
-      }
     }
-  });
 
-  const resultTableBook = () => {
-    books.forEach(function (book, index) {
-      $("table").append(
-        "<tr><td>" +
-          (index + 1) +
-          "</td><td>" +
-          book.book_name +
-          "</td><td>" +
-          book.description +
-          "</td><td><button id='edit_" +
-          index +
-          "' class='text-warning'>Edit</button><button id='delete_" +
-          index +
-          "' class='text-danger'>delete</button></td></tr>"
-      );
-    });
-  };
-
-  $("tbody").on("click", ".text-warning", function () {
-    let index = $(this).attr("id").split("_")[1];
-    $("#book_id").val(books[index].id);
-    $("#book_name").val(books[index].book_name);
-    $("#description").val(books[index].description);
-
-    $("#input-page").show();
-    $("#main-page").hide();
-  });
-
-  $("tbody").on("click", ".text-danger", function () {
-    let index = $(this).attr("id").split("_")[1];
-    let id = books[index].id;
-    $.ajax({
-      url: "https://jquery.warastra-adhiguna.com/api/book/" + id,
-      type: "DELETE",
-      dataType: "json",
-      data: {
-        nickname: nickname,
-        book_name: $("#book_name").val(),
-        description: $("#description").val(),
-      },
-      success: (data) => {
-        alert("berhasil dihapus");
-        getData();
-        refreshTable();
-      },
-      error: (error) => {
-        swal({
-          title: "Error",
-          text: "Hapus data gagal",
-          icon: "error",
-          button: "Ok",
+    function refreshTable() {
+        $("tbody").empty();
+        books.forEach(function (book, index) {
+            $("tbody").append("<tr><td>" + (index + 1) + "</td><td>" + book.book_name + "</td><td>" + book.description + "</td><td><button id='edit_" + index + "' class='text-warning'>Edit</button><button id='delete_" + index + "' class='text-danger'>Delete</button></td></tr>");
         });
-      },
-    });
-  });
+    }
 
-  const refreshTable = () => {
-    $("tbody").empty();
-    books.forEach(function (book, index) {
-      $("table").append(
-        "<tr><td>" +
-          (index + 1) +
-          "</td><td>" +
-          book.book_name +
-          "</td><td>" +
-          book.description +
-          "</td><td><button id='edit_" +
-          index +
-          "' class='text-warning'>Edit</button><button id='delete_" +
-          index +
-          "' class='text-danger'>delete</button></td></tr>"
-      );
-    });
-  };
-  const getData = () => {
-    $.ajax({
-      url: "https://jquery.warastra-adhiguna.com/api/book?nickname=" + nickname,
-      type: "GET",
-      dataType: "json",
-      success: function (result) {
-        books = result.data;
-        resultTableBook();
-        refreshTable();
-      },
-      error: function (error) {
-        alert("Terjadi kesalahan: ", error.message);
-      },
-    });
-  };
+    function clearDetailForm() {
+        $('#book_id').val('');
+        $('#book_name').val('');
+        $('#description').val('');
+    }
 });
