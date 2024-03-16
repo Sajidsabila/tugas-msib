@@ -44,7 +44,7 @@ $(document).ready(() => {
         button: "Isi Form",
       });
     } else {
-      if ($("#book_id").val() == "") {
+      if ($("#book_id").val() == "" + index == 0 ) {
         $.ajax({
           url:
             "https://jquery.warastra-adhiguna.com/api/book?nickname=" +
