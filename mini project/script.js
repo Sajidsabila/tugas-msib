@@ -5,7 +5,7 @@ $(document).ready(function(){
         success: function(data) {
            console.log(data);
            $.each(data, function(index, products){
-             $('#product').append(
+             $('#product-card').append(
 
                 `
                 <div class="col-3">
