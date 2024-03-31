@@ -8,7 +8,7 @@ $(document).ready(function(){
              $('#product-card').append(
 
                 `
-                <div class="col-3">
+                <div class="col-lg-3 col-md-6 col-sm-12">
                 <div class="card m-4" >
                     <div class="card-header bg-primary text-white fw-bold">
                         ${products.name}
