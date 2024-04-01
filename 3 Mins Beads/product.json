@@ -1,0 +1,58 @@
+
+  [
+    {
+      "name": "product1",
+      "description": "lorem uwuwuwuuwu",
+      "price": "Rp. 20. 000",
+      "image": "https://github.com/Immanuel1211/gambar3-beads/blob/main/IMG_3835.PNG?raw=true"
+    },
+    {
+      "name": "product1",
+      "description": "lorem uwuwuwuuwu",
+      "price": "Rp. 20. 000",
+      "image": "https://github.com/Immanuel1211/gambar3-beads/blob/main/IMG_3724.PNG?raw=true"
+    },
+    {
+      "name": "product1",
+      "description": "lorem uwuwuwuuwu",
+      "price": "Rp. 20. 000",
+      "image": "https://github.com/Immanuel1211/gambar3-beads/blob/main/IMG_3765.JPG?raw=true"
+    },
+    {
+      "name": "product1",
+      "description": "lorem uwuwuwuuwu",
+      "price": "Rp. 20. 000",
+      "image": "https://github.com/Immanuel1211/gambar3-beads/blob/main/IMG_3529.PNG?raw=true"
+    },
+    {
+      "name": "product1",
+      "description": "lorem uwuwuwuuwu",
+      "price": "Rp. 20. 0001",
+      "image": "https://github.com/Immanuel1211/gambar3-beads/blob/main/IMG_3519.JPG?raw=true"
+    },
+    {
+        "name": "product1",
+        "description": "lorem uwuwuwuuwu",
+        "price": "Rp. 20. 0001",
+        "image": "https://github.com/Immanuel1211/gambar3-beads/blob/main/IMG_3491.JPG?raw=true"
+      },
+      {
+        "name": "product1",
+        "description": "lorem uwuwuwuuwu",
+        "price": "Rp. 20. 0001",
+        "image": "https://github.com/Immanuel1211/gambar3-beads/blob/main/IMG_3461.PNG?raw=true"
+      },
+      {
+        "name": "product1",
+        "description": "lorem uwuwuwuuwu",
+        "price": "Rp. 20. 000",
+        "image": "https://github.com/Immanuel1211/gambar3-beads/blob/main/IMG_3459.JPG?raw=true"
+      },
+      {
+        "name": "product1",
+        "description": "lorem uwuwuwuuwu",
+        "price": "Rp. 20. 000",
+        "image": "https://github.com/Immanuel1211/gambar3-beads/blob/main/IMG_3454.PNG?raw=true"
+      }
+  ]
+
