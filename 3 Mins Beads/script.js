@@ -1,28 +1,43 @@
-$(document).ready(function () {
-  $.ajax({
-    url: "product.json",
-    dataType: "json",
-    success: function (data) {
-      console.log(data);
-      $.each(data, function (index, products) {
-        $("#product-card").append(
-          `
-                <div class="col-lg-3 col-md-6 col-sm-12">
-                <div class="card m-4" >
-                    <div class="card-header bg-primary text-white fw-bold">
-                        ${products.name}
-                    </div>
-                    <div class="card-body">
-                     <img src="${products.image}" class="image-fluid rounded-3" width="100%" alt="${products.name}">
-                     <p class="">${products.description}</p>
-                     <p class="">${products.price}</p>
-                     <p class=""><button class="btn btn-primary">Beli</button>
-                     <button class="btn btn-success">Detail</button>           
-                     </p>
-                </div>
-                </div>`
-        );
+fetch('product.json')
+  .then(response => response.json())
+  .then(data => {
+    const productCarousel = document.getElementById('productCarousel');
+    productCarousel.innerHTML = ''; // Menghapus konten sebelumnya
+
+    data.forEach(product => {
+      const carouselCell = document.createElement('div');
+      carouselCell.classList.add('carousel-cell');
+
+      const card = `
+        <div class="card m-4">
+          <div class="card-header bg-primary text-white fw-bold">
+            ${product.name}
+          </div>
+          <div class="card-body">
+            <img src="${product.image}" class="image-fluid rounded-3" width="100%" alt="${product.name}">
+            <p>${product.description}</p>
+            <p>${product.price}</p>
+            <p>
+              <button class="btn btn-primary">Beli</button>
+              <button class="btn btn-success">Detail</button>
+            </p>
+          </div>
+        </div>
+      `;
+
+      carouselCell.innerHTML = card;
+      productCarousel.appendChild(carouselCell);
+    });
+
+    // Initialize Flickity after adding items
+    AOS.init();
+    $flickity = new Flickity('.main-carousel', {
+        cellAlign: 'left',
+        wrapAround: true,
+        freeScroll: true,
+        contain: true, // Menambahkan opsi contain
       });
-    },
+    })
+  .catch(error => {
+    console.error('Error fetching product data:', error);
   });
-});
