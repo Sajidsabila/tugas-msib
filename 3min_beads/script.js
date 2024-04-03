@@ -1,10 +1,14 @@
-fetch('product.json')
+
+fetch('product.json')  // MENGAMBIL DATA product.json
   .then(response => response.json())
   .then(data => {
+    // memanggial id productCarousell
     const productCarousel = document.getElementById('productCarousel');
     productCarousel.innerHTML = ''; // Menghapus konten sebelumnya
 
+    // melakukan perulangan data product 
     data.forEach(product => {
+      // menambahkan class carousel-cell
       const carouselCell = document.createElement('div');
       carouselCell.classList.add('carousel-cell');
 
@@ -25,6 +29,8 @@ fetch('product.json')
         </div>
       `;
 
+      //  merubah tampilan class carousel-cell sesuai data yang tertampung di variabel card
+    //  dan menambahkan/menyisipkan class carouselCell di Id ProductCatroucell
       carouselCell.innerHTML = card;
       productCarousel.appendChild(carouselCell);
     });
@@ -38,6 +44,9 @@ fetch('product.json')
         contain: true, // Menambahkan opsi contain
       });
     })
+
+    // apabila product.json gagal diambil maka tampilkan 
+    // console.log("Error")
   .catch(error => {
     console.error('Error fetching product data:', error);
   });
