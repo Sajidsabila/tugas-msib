@@ -46,5 +46,17 @@
         "description": "Black Purple Star",
         "price": "Rp. 20. 000",
         "image": "https://github.com/Immanuel1211/gambar3-beads/blob/main/IMG_3454.PNG?raw=true"
+      },
+      {
+        "name": "Gelang",
+        "description": "Pastel Rose",
+        "price": "Rp. 17. 000",
+        "image": "https://github.com/Immanuel1211/gambar3-beads/blob/main/IMG_3923.JPG?raw=true"
+      },
+      {
+        "name": "Gelang",
+        "description": "The Starry Night",
+        "price": "Rp. 15. 000",
+        "image": "https://github.com/Immanuel1211/gambar3-beads/blob/main/IMG_3857.JPG?raw=true"
       }
   ]
