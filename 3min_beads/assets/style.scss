@@ -90,6 +90,23 @@ nav {
         border-radius: 20px;
         padding: 20px;
         overflow: hidden;
+    .main-carousel {
+    overflow: hidden;
+    width:max-content;
+  }
+  .cell {
+    width: 400px;
+    height: 400px;
+    margin: 30px;
+    overflow: hidden;
+    border-radius: 30px;
+    box-shadow: 0 4px 8px 0 rgba(134, 131, 131, 0.2),
+      0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+  .cell img {
+    width: 200px;
+    height: 200px;
+  }
       }
 
 #about {
