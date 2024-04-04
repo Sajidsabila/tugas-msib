@@ -43,6 +43,13 @@ fetch('product.json')  // MENGAMBIL DATA product.json
         freeScroll: true,
         contain: true, // Menambahkan opsi contain
       });
+    
+     const carousel =  $(".main-carousel").flickity({
+        // options
+        cellAlign: "left",
+        wrapAround: true,
+        freeScroll: true,
+      });
     })
 
     // apabila product.json gagal diambil maka tampilkan 
